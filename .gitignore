@@ -1,0 +1,35 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# --- Entornos virtuales ---
+.venv/
+venv/
+env/
+
+# --- Datos (viven fuera del repo, en Dropbox) ---
+*.parquet
+*.sqlite
+*.db
+data/
+
+# --- Logs ---
+*.log
+streamlit_check.log
+streamlit_run.log
+
+# --- Editor / IDE ---
+.vscode/
+.idea/
+docs/.obsidian/
+
+# --- Accesos directos generados ---
+*.lnk
+
+# --- SO ---
+Thumbs.db
+desktop.ini
+.DS_Store

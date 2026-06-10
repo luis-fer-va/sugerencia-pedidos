@@ -1,0 +1,8 @@
+Guarda aquí el logo de la empresa con el nombre EXACTO:
+
+    logo_laroka.png
+
+(el círculo rojo "EXPENDIO DE CARNES La Roka")
+
+El prototipo_visual.html lo carga desde assets/logo_laroka.png.
+Si el archivo no existe, el mockup muestra automáticamente un monograma "LR" de respaldo.
