@@ -1,0 +1,7 @@
+# App La Roka — Toma de Pedidos (Streamlit)
+# Versiones probadas con Python 3.13. Para reproducir el entorno exacto:
+#   python -m venv .venv && pip install -r requirements.txt
+streamlit==1.58.0
+polars==1.37.0
+pandas==2.3.3
+pyarrow==22.0.0

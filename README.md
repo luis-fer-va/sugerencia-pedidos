@@ -110,17 +110,49 @@ laRoka-pedidos/
 
 ---
 
-## 🚀 Cómo se ejecuta *(referencia)*
+## 🚀 Cómo ejecutarlo
+
+Requiere **Python 3.11+**. Desde la raíz del repositorio:
 
 ```bash
-# ETL completo (extracción → lógica de negocio → salida parquet/SQL)
-Cargar_Proceso.bat
+# 1) Entorno virtual
+python -m venv .venv
+# Windows:  .venv\Scripts\activate
+# Linux/Mac: source .venv/bin/activate
 
-# App de pedidos (próximamente)
+# 2) Dependencias
+pip install -r requirements.txt
+
+# 3) Levantar la app (desde la RAÍZ del repo)
 streamlit run src/app/app.py
 ```
 
-> 🔎 Vista previa de la interfaz: abre [`docs/prototipo_visual.html`](docs/prototipo_visual.html) en el navegador.
+> ✅ **Arranca sin datos.** Si no encuentra los `.parquet`, la app levanta en **modo muestra** con datos de
+> ejemplo, para que puedas verla funcionando de inmediato.
+
+### Conectar tus propios datos
+
+La fuente de datos es **intercambiable** (patrón repositorio). Para apuntar a tus `.parquet`:
+
+```bash
+# Windows (PowerShell)
+$env:ROKA_DATA_DIR = "D:/ruta/a/tus/parquet"
+# Linux/Mac
+export ROKA_DATA_DIR=/ruta/a/tus/parquet
+streamlit run src/app/app.py
+```
+
+El esquema que la app espera de cada tabla está documentado en
+[`src/app/domain/contracts.py`](src/app/domain/contracts.py). Para usar **otra fuente** (SQL, API, etc.) basta
+con implementar la interfaz `FuenteDatos` ([`src/app/data/repository.py`](src/app/data/repository.py)) — no
+hay que tocar la UI ni el motor.
+
+### 🖱️ Lanzador sin consola (Windows)
+
+Para que un cajero abra la app con doble clic (Chrome, sin ventana de terminal): ejecuta una vez
+`Crear-Acceso-Directo.vbs` (crea el acceso directo en el escritorio) y luego usa `App-Pedidos.vbs`.
+
+> 🔎 Vista previa de la interfaz sin instalar nada: abre [`docs/prototipo_visual.html`](docs/prototipo_visual.html) en el navegador.
 
 ---
 
