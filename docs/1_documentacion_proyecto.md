@@ -17,7 +17,7 @@ Hoy el pedido se arma a memoria revisando físicamente las estanterías. Este pr
 | Dolor                                 | Qué pasa hoy                                                                                     | Costo                                                                                             |
 | ------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------- |
 | 🥩 **Merma en perecederos**           | Se pide de más en productos de venta lenta → se dañan antes de venderse                          | 📊 **~$2.5M acumulados** (~$80K/mes promedio) en pérdidas registradas — `fact_perdidas`, 31 meses |
-| 💰 **Capital atrapado (sobre-stock)** | Se compra no-perecedero "por promo" o sin mirar el stock real → la plata queda inmóvil en bodega | 📊 **~$7.58M inmovilizados hoy** en productos estancados (>14 días de inventario)                 |
+| 💰 **Capital atrapado (sobre-stock)** | Se compra no-perecedero "por promo" o sin mirar el stock real → la plata queda inmóvil en bodega | 📊 **~$7.58M inmovilizados hoy** en productos estancados (>14 días en inventario)                 |
 | 🚫 **Quiebre de stock**               | Se olvidan productos de alta rotación → agotados                                                 | ❓ **Venta perdida** (no medida: el POS no registra lo que el cliente buscó y no encontró)         |
 | ⏱️ **Tiempo operativo**               | Armar el pedido a memoria, estante por estante                                                   | 🗣️ **~8 h/semana** (un turno), reportado por el equipo                                           |
 

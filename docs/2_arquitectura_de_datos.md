@@ -84,94 +84,10 @@ materializa en archivos `.parquet` desde una arquitectura **medallón** (bronze 
 | costo_producto | `DECIMAL(12,2)` | |
 | compra | `DECIMAL(14,2)` | Importe de la línea |
 
----
-
-## 2.2 Diagrama DBML (para [dbdiagram.io](https://dbdiagram.io))
-
-```dbml
-Table dim_productos {
-  id_producto           int          [pk]
-  nombre_producto       varchar
-  categoria             varchar
-  categoria_nivel_2     varchar
-  categoria_nivel_3     varchar
-  unidad_medida         varchar      [note: "'kg' | 'uni'"]
-  precio_venta          decimal
-  costo_estandar        decimal
-  ultimo_precio_compra  decimal
-  margen_ganancia       decimal
-  esta_activo           boolean
-  es_perecedero         boolean
-  frecuencia_inventario varchar
-  fecha_creacion_prod   timestamp
-}
-
-Table dim_proveedor {
-  id_proveedor int       [pk]
-  proveedor    varchar
-}
-
-Table puente_producto_proveedor {
-  id_producto  int [ref: > dim_productos.id_producto]
-  id_proveedor int [ref: > dim_proveedor.id_proveedor]
-
-  indexes {
-    (id_producto, id_proveedor) [pk]
-  }
-}
-
-Table dim_stock {
-  id_stock                int       [pk]
-  id_producto             int       [ref: > dim_productos.id_producto]
-  id_bodega               int
-  cantidad_actual         decimal
-  fecha_u_venta           date
-  dias_sin_vender         int
-  costo_estandar          decimal
-  capital_en_riesgo       decimal
-  venta_diaria_referencia decimal
-  dias_inventario         decimal
-  estado_semaforo         varchar
-  nivel_objetivo          decimal
-  sugerencia_pedido       decimal
-}
-
-Table dim_calendario {
-  fecha          date [pk]
-  anio           int
-  mes_num        int
-  dia_semana_num int
-}
-
-Table fact_ventas {
-  id_documento     int
-  numero_documento varchar
-  fecha            date [ref: > dim_calendario.fecha]
-  id_producto      int  [ref: > dim_productos.id_producto]
-  id_cliente       int
-  id_usuario       int
-  cantidad         decimal
-  precio_unitario  decimal
-  costo_producto   decimal
-  venta            decimal
-}
-
-Table fact_compras {
-  id_documento     int
-  numero_documento varchar
-  fecha            date [ref: > dim_calendario.fecha]
-  id_producto      int  [ref: > dim_productos.id_producto]
-  id_cliente       int  [ref: > dim_proveedor.id_proveedor, note: "proveedor"]
-  cantidad         decimal
-  precio_unitario  decimal
-  costo_producto   decimal
-  compra           decimal
-}
-```
 
 ---
 
-## 2.3 Diagrama Entidad-Relación (Mermaid — renderiza en GitHub / Obsidian)
+## 2.2 Diagrama Entidad-Relación
 
 ```mermaid
 erDiagram
@@ -242,5 +158,4 @@ producto se compra a varios proveedores**. Se corrige con la tabla puente
 
 `dim_proveedor (1) ──< puente_producto_proveedor >── (1) dim_productos`
 
-> ⚠️ *Deuda técnica conocida (backlog):* en la fuente existen proveedores duplicados (mismo proveedor con
-> nombres distintos por errores de captura de distintos cajeros). Se corregirá en origen; no bloquea el MVP.
+> ⚠️ *Deuda técnica conocida (backlog):* en la fuente existen proveedores duplicados (mismo proveedor con nombres distintos por errores de captura de distintos cajeros). Se corregirá en origen; no bloquea el MVP.

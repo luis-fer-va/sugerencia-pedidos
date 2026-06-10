@@ -1,8 +1,7 @@
 # 4. Hallazgos del Análisis — ¿El problema es real?
 
 > Este proyecto **no** nació de un análisis: nació de **ver** estanterías con producto perecedero
-> que se devolvía o se botaba. La primera disciplina de un analista es no dejarse guiar solo por lo que
-> ve, sino **verificarlo con datos**. Este documento es esa verificación.
+> que se devolvía o se botaba. La primera disciplina de un analista es no dejarse guiar solo por lo que ve, sino **verificarlo con datos**. Este documento es esa verificación.
 >
 > **Período analizado:** enero–mayo 2026 (5 meses) · **Fuentes:** `fact_perdidas`, `fact_compras`,
 > `fact_ventas`, `dim_stock`, `dim_productos`.
@@ -11,8 +10,7 @@
 
 ## 4.1 La pregunta ancla
 
-> **¿Hay un problema de dinero lo bastante grande, y concentrado, como para justificar construir un
-> motor de pedidos? ¿Y los datos confirman lo que el ojo vio en la estantería?**
+> **¿Hay un problema de dinero lo bastante grande, y concentrado, como para justificar construir un motor de pedidos? ¿Y los datos confirman lo que el ojo vio en la estantería?**
 
 Todo lo que sigue se juzga contra esa pregunta.
 
@@ -27,12 +25,10 @@ Todo lo que sigue se juzga contra esa pregunta.
 | Pérdida como % de las compras a costo | 2,18% |
 | Pérdida como % del ingreso | 0,30% |
 
-**Criterio — un número solo no es ni grande ni pequeño.** $1,64M/año "suena" mucho, pero contra $228M de
-ingreso es 0,3%. ¿Entonces no importa? Sí importa, y el mejor espejo no es el ingreso sino **el margen**:
+**Criterio — un número solo no es ni grande ni pequeño.** $1,64M/año "suena" mucho, pero contra $228M de ingreso es 0,3%. ¿Entonces no importa? Sí importa, y el mejor espejo no es el ingreso sino **el margen**:
 
 > La pérdida de Fruver ($614K) equivale al **8,5% del margen que deja Fruver** en el mismo período
-> ($8,04M de margen). Es decir: de cada $100 de utilidad que genera la fruta y verdura, **$8,5 se botan
-> a la basura.** Esa es la cifra que duele y la que justifica el proyecto.
+> ($8,04M de margen). Es decir: de cada $100 de utilidad que genera la fruta y verdura, **$8,5 se botan a la basura.** Esa es la cifra que duele y la que justifica el proyecto.
 
 ---
 
@@ -63,8 +59,7 @@ Top productos por pérdida (acumulado): **Banano → Plátano → Tomate → Agu
 
 ## 4.4 El giro: hay DOS dolores, no uno
 
-El ojo vio fruta podrida y concluyó "el problema es la merma de perecederos". Cierto, **pero los datos
-revelaron un segundo problema, distinto y más grande en plata**:
+El ojo vio fruta podrida y concluyó "el problema es la merma de perecederos". Cierto, **pero los datos revelaron un segundo problema, distinto y más grande en plata**:
 
 | | 🥩 Merma (se daña y se bota) | 💰 Capital atrapado (no se daña, pero no rota) |
 |---|---|---|
@@ -92,9 +87,7 @@ de su última venta:
 | Queso mozarella en bloque | 321 | $19.200 |
 | Cayo (menudo res) | 153 | $32.000 |
 
-Se compró crema dental que llevaba **462 días sin venderse una sola unidad**. Eso no es mala suerte: es
-**comprar a memoria, sin mirar el dato.** Esta es la causa raíz, en pesos y con nombre propio — y es
-exactamente lo que el motor frena: pone un ⚫ ESTANCADO y sugiere **pedir 0**.
+Se compró crema dental que llevaba **462 días sin venderse una sola unidad**. Eso no es mala suerte: es **comprar a memoria, sin mirar el dato.** Esta es la causa raíz, en pesos y con nombre propio — y es exactamente lo que el motor frena: pone un ⚫ ESTANCADO y sugiere **pedir 0**.
 
 ---
 
@@ -110,10 +103,3 @@ exactamente lo que el motor frena: pone un ⚫ ESTANCADO y sugiere **pedir 0**.
 **El proyecto está justificado por datos, no por intuición.** El motor de pedidos ataca directamente las
 dos causas: frena la compra de lo estancado (capital) y dimensiona la compra de perecederos (merma).
 
----
-
-> **Nota de rigor (escepticismo del analista):** la "tasa de merma sobre compras" da 36,7% en Fruver, una
-> cifra sospechosamente alta. Causa probable: `vlr_perdida` está valorada a **precio de venta** y
-> `costo_producto` a **costo** → comparar ambos infla la tasa (peras con manzanas). Por eso el denominador
-> de confianza es el **margen** (§4.2, 8,5%), no ese 36,7%. *Regla: cuando un número se ve extremo,
-> primero se interroga la medición; no se publica.*

@@ -1,13 +1,12 @@
-# 3. Lógica de Negocio — El Motor Analítico
+# 3. Lógica de Negocio 
 
-Modelo de **revisión periódica (*order-up-to*)**: como el proveedor pasa cada 7 días, no reponemos "lo
-vendido", sino que **llenamos hasta un nivel objetivo** que cubre el ciclo + un colchón de seguridad.
+Modelo de **revisión periódica (*order-up-to*)**: como el proveedor pasa cada 7 días, no reponemos "lo vendido", sino que **llenamos hasta un nivel objetivo** que cubre el ciclo + un colchón de seguridad.
 
 ---
 
 ## 3.1 Fórmulas clave
 
-**1. Venta Diaria** — total vendido en la ventana ÷ *todos* los días de la ventana (incluidos los días en cero):
+**1. Venta Diaria** — total vendido en la ventana ÷ *todos* los días de la ventana (incluidos los días en cero venta):
 
 $$VD = \frac{\sum cantidad_{ventana}}{N_{dias}} \qquad N_{dias} \in \{14,\ 90\}$$
 
@@ -27,12 +26,12 @@ $$Pedido = \max(0,\ S - Stock_{actual})$$
 
 ## 3.2 Reglas de criterio
 
-**Ventana de cálculo** (regla senior: *más perecedero → ventana más corta*):
+**Ventana de cálculo** 
 
-| Tipo | `es_perecedero` | Ventana ($N$) | Por qué |
-|------|-----------------|---------------|---------|
-| Perecedero (Carnes, Fruver, Lácteos…) | `True` | **14 días** | Mira el presente; se daña rápido |
-| Estable (Abarrotes, Aseo, Bebidas…) | `False` | **90 días** | Mira la historia; demanda estable |
+| Tipo                                  | `es_perecedero` | Ventana ($N$) | Por qué                           |
+| ------------------------------------- | --------------- | ------------- | --------------------------------- |
+| Perecedero (Carnes, Fruver, Lácteos…) | `True`          | **14 días**   | Mira el presente; se daña rápido  |
+| Estable (Abarrotes, Aseo, Bebidas…)   | `False`         | **90 días**   | Mira la historia; demanda estable |
 
 **Colchón de seguridad** (días extra sobre el ciclo de 7):
 
@@ -94,7 +93,7 @@ graph TD
     C -->|Sí| D["🔴 CRÍTICO<br/>riesgo de agotado"]
     D --> E["🚨 ALERTA: venta perdida inminente"]
     D --> F["Nivel Objetivo<br/>S = VD × (7 + colchón)"]
-    F --> G["Pedido = máx(0, S − Stock)<br/>compra agresiva con buffer"]
+    F --> G["Pedido = máx(0, S − Stock)<br/>compra agresiva"]
     G --> H(["✅ Pedir YA"])
     style D fill:#3a1212,stroke:#ff5630,color:#ff8f73
     style E fill:#3a1212,stroke:#ff5630,color:#ff8f73
